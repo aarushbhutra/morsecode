@@ -1,7 +1,5 @@
 """
-The decode function is currently not working. I am not sure why. I have tried to debug it, but I am not sure what is wrong.
-If you can fix it make a pull request and I will merge it.
-
+EDIT: Fixed decode, ty OLL58!
 """
 
 #Make a dictionary called morse code and assign the following values to it
@@ -46,16 +44,16 @@ def decode_morse(string):
     for char in string:
         #If the character is a space, add a space to the morse_code_string
         if char == " ":
-            morse_code_string += " "
+            if morse_code_string in morse_code_values:
+                #Add the key of the morse_code_string to the decoded_string
+                decoded_string += morse_code_keys[morse_code_values.index(morse_code_string)]
+                #Reset the morse_code_string to an empty string
+                morse_code_string = ""
         #Otherwise, add the character to the morse_code_string
         else:
             morse_code_string += char
         #If the morse_code_string is in the morse_code_values list
-        if morse_code_string in morse_code_values:
-            #Add the key of the morse_code_string to the decoded_string
-            decoded_string += morse_code_keys[morse_code_values.index(morse_code_string)]
-            #Reset the morse_code_string to an empty string
-            morse_code_string = ""
+        
     #Return the decoded_string
     return decoded_string
 
@@ -66,10 +64,10 @@ def main():
     #Create a variable called encoded_message and assign it the return value of the encode_morse function
     encoded_message = encode_morse(message)
     #Create a variable called decoded_message and assign it the return value of the decode_morse function
-    #decoded_message = decode_morse(encoded_message)
+    decoded_message = decode_morse(encoded_message)
     #Print that message has been turned into morse code
     print(message, "has been turned into morse code as", encoded_message)
-    #print(decoded_message)
+    print(decoded_message)
 
 #Call the main function
 main()
